@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "localiza"
+    }
+  },
+  "defaultProject": "localiza",
+  "cli": {
+    "analytics": "b0e1da7b-d6c9-4734-b07f-38bc7a56cd32"
+  }
 }
