@@ -1,0 +1,31 @@
+@import './../../../assets/styles/colors.scss';
+@import './../../../assets/styles/variables.scss';
+@import './../../../assets/styles/mixins.scss';
+
+.content-home {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  > .column {
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    > img {
+      width: 20%;
+      margin-bottom: 10px;
+    }
+
+    > .titulo {
+      @include font-family('localiza_din_displaybold');
+      font-size: $fonte-grande;
+      color: $texto-claro;
+    }
+
+    > .subtitulo {
+      color: $texto-escuro;
+    }
+  }
+}
