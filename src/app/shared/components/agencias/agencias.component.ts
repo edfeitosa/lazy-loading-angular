@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
+
+import { AgenciasService } from '../../services/agencias.service';
 
 @Component({
   selector: 'app-agencias',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgenciasComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private agenciasService: AgenciasService
+  ) { }
 
   ngOnInit(): void {
+    this.getAgencias();
+  }
+
+  getAgencias(): void {
+    this.agenciasService.agencias()
+      .pipe(take(1))
+      .subscribe(
+        dados => console.log(dados.data),
+        erro => console.log(erro)
+      )
   }
 
 }
