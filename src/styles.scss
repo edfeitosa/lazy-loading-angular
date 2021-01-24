@@ -29,13 +29,6 @@ p {
   color: $texto-escuro;
 }
 
-a {
-  @include corBotao();
-  background-color: $verde-pera;
-  color: $verde-escuro;
-  border-radius: 4px;
-}
-
 .botao {
   @include font-family('localiza_din_displayregular');
   font-weight: 700 !important;
