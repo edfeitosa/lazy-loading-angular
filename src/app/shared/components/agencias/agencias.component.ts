@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewContainerRef,
+  ViewChild,
+  Compiler
+} from '@angular/core';
 import { take } from 'rxjs/operators';
 
 import { AgenciasService } from '../../services/agencias.service';
@@ -10,8 +16,12 @@ import { AgenciasService } from '../../services/agencias.service';
 })
 export class AgenciasComponent implements OnInit {
 
+  @ViewChild('autocomplete', { read: ViewContainerRef, static: true }) 
+    autocomplete: ViewContainerRef;
+
   constructor(
-    private agenciasService: AgenciasService
+    private agenciasService: AgenciasService,
+    private compiler: Compiler
   ) { }
 
   ngOnInit(): void {
@@ -22,9 +32,29 @@ export class AgenciasComponent implements OnInit {
     this.agenciasService.agencias()
       .pipe(take(1))
       .subscribe(
-        dados => console.log(dados.data),
+        dados => {
+          this.autocompleteRender(dados.data);
+        },
         erro => console.log(erro)
       )
+  }
+
+  onSelect(item: any): void {
+    console.log(item);
+  }
+
+  autocompleteRender(dados: Array<object>): void {
+    import('../autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
+      const module = this.compiler.compileModuleSync(AutocompleteModule);
+      const ngModule = module.create(this.autocomplete.injector);
+      const component = ngModule.componentFactoryResolver.resolveComponentFactory(AutocompleteModule.componentToRender());
+      const ref = this.autocomplete.createComponent(component);
+      ref.instance.onSelect = this.onSelect;
+      ref.instance.data = dados;
+      ref.instance.keyword = 'nome';
+      ref.instance.placeholder = 'Selecione a agência para obter informações';
+      ref.instance.titulo = 'Nome da Agência';
+    });
   }
 
 }

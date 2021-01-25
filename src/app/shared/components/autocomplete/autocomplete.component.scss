@@ -1,0 +1,29 @@
+@import './../../../../assets/styles/colors.scss';
+@import './../../../../assets/styles/variables.scss';
+@import './../../../../assets/styles/mixins.scss';
+
+.titulo {
+  @include font-family('localiza_din_displaybold');
+  font-size: $fonte-pequena;
+  color: $texto-escuro;
+  margin-bottom: 5px;;
+}
+
+.ng-autocomplete {
+  width: 100%;
+
+  ::ng-deep .autocomplete-container {
+    box-shadow: none;
+    border: 1px solid $cinza-div;
+    input {
+      padding-top: 2px;
+      @include font-family('localiza_din_displayregular');
+    }
+  }
+
+  ::ng-deep .suggestions-container {
+    box-shadow: none;
+    @include font-family('localiza_din_displayregular');
+    background-color: $cinza-div;
+  }
+}
