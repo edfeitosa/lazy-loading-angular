@@ -16,8 +16,8 @@ import { AgenciasService } from '../../services/agencias.service';
 })
 export class AgenciasComponent implements OnInit {
 
-  @ViewChild('autocomplete', { read: ViewContainerRef, static: true }) 
-    autocomplete: ViewContainerRef;
+  @ViewChild('autocomplete', { read: ViewContainerRef, static: true }) autocomplete: ViewContainerRef;
+  @ViewChild('informacoes', { read: ViewContainerRef, static: true }) informacoes: ViewContainerRef;
 
   constructor(
     private agenciasService: AgenciasService,
@@ -39,8 +39,9 @@ export class AgenciasComponent implements OnInit {
       )
   }
 
-  onSelect(item: any): void {
-    console.log(item);
+  onSelect(dados: object): void {
+    console.log(dados);
+    this.informacoesRender(dados);
   }
 
   autocompleteRender(dados: Array<object>): void {
@@ -54,6 +55,17 @@ export class AgenciasComponent implements OnInit {
       ref.instance.keyword = 'nome';
       ref.instance.placeholder = 'Selecione a agência para obter informações';
       ref.instance.titulo = 'Nome da Agência';
+    });
+  }
+
+  informacoesRender(dados: object): void {
+    import('../informacoes/informacoes.module').then(({ InformacoesModule }) => {
+      const module = this.compiler.compileModuleSync(InformacoesModule);
+      const ngModule = module.create(this.informacoes.injector);
+      const component = ngModule.componentFactoryResolver.resolveComponentFactory(InformacoesModule.componentToRender());
+      const ref = this.informacoes.createComponent(component);
+      ref.instance.tipo = 'agencias';
+      ref.instance.dados = dados;
     });
   }
 
