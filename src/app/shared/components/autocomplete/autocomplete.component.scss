@@ -11,13 +11,18 @@
 
 .ng-autocomplete {
   width: 100%;
+  margin-bottom: 10px;
 
   ::ng-deep .autocomplete-container {
     box-shadow: none;
-    border: 1px solid $cinza-div;
+    border: 1px solid $borda;
+    border-radius: 5px;
+
     input {
       padding-top: 2px;
+      border-radius: 5px;
       @include font-family('localiza_din_displayregular');
+      color: $texto-claro;
     }
   }
 
@@ -25,5 +30,6 @@
     box-shadow: none;
     @include font-family('localiza_din_displayregular');
     background-color: $cinza-div;
+    color: $texto-claro;
   }
 }

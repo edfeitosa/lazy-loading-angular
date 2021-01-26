@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { AgenciaService } from '../../services/agencia.service';
+import { Agencia } from '../../interfaces/agencia.interface';
+
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
@@ -7,22 +10,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AutocompleteComponent implements OnInit {
 
-  @Input() onSelect: Function;
   @Input() data: Array<object>;
   @Input() keyword: string;
   @Input() placeholder: string;
   @Input() titulo: string;
 
-  constructor() { }
+  constructor(
+    private agenciaService: AgenciaService
+  ) { }
 
   ngOnInit(): void { }
 
-  selectEvent(item: object) {
-    this.onSelect(item);
+  selectEvent(item: Agencia): void {
+    this.agenciaService.atualizaDadosAgencia(item);
   }
 
-  onFocused(): void {
-    console.log('está com foco');
-  }
+  onFocused(): void { }
 
 }

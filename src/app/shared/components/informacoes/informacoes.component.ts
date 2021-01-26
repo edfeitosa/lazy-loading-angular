@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Agencia } from '../../interfaces/agencia.interface';
 
 @Component({
   selector: 'app-informacoes',
@@ -8,11 +9,10 @@ import { Component, OnInit, Input } from '@angular/core';
 export class InformacoesComponent implements OnInit {
 
   @Input() tipo: string;
-  @Input() dados: object;
+  @Input() dados: Agencia;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

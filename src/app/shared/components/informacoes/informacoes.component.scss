@@ -1,0 +1,10 @@
+@import './../../../../assets/styles/colors.scss';
+@import './../../../../assets/styles/variables.scss';
+@import './../../../../assets/styles/mixins.scss';
+
+.informacoes {
+  background-color: $branco;
+  border: 1px solid $borda;
+  border-radius: 5px;
+  padding: 10px;
+}
