@@ -6,5 +6,27 @@
   background-color: $branco;
   border: 1px solid $borda;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
+
+  .header {
+    @include font-family('localiza_din_displaybold');
+    font-size: $fonte-grande;
+    color: $verde-claro;
+    padding-bottom: 10px;
+  }
+
+  .linha {
+    padding-bottom: 10px;
+    width: 100%;
+
+    >.titulo {
+      @include font-family('localiza_din_displaybold');
+      font-size: $fonte-pequena;
+      color: $texto-escuro;
+    }
+
+    >.descricao {
+      color: $texto-claro;
+    }
+  }
 }

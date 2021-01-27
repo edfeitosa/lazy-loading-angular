@@ -6,5 +6,5 @@ export interface Agencia {
   nome: string;
   nomeCidade: string;
   nomePais: string;
-  sligaEstado: string;
+  siglaEstado: string;
 }
