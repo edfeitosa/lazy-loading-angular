@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { take, takeWhile } from 'rxjs/operators';
 
-import { AgenciasService } from '../../services/agencias.service';
+import { AgenciasService } from '../../services/agencias/agencias.service';
 import { Agencias } from '../../interfaces/agencias.interface';
 import { Agencia } from '../../interfaces/agencia.interface';
 

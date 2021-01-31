@@ -3,8 +3,8 @@ import { Observable, throwError } from "rxjs";
 import { catchError, tap, take } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
-import { environment } from '../../../environments/environment';
-import { Agencias } from '../interfaces/agencias.interface';
+import { environment } from '../../../../environments/environment';
+import { Agencias } from '../../interfaces/agencias.interface';
 
 @Injectable({
   providedIn: 'any'
