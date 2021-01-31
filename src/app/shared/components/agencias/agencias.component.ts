@@ -10,18 +10,13 @@ import { take, takeWhile } from 'rxjs/operators';
 
 import { AgenciasService } from '../../services/agencias.service';
 import { Agencias } from '../../interfaces/agencias.interface';
-
-import { AgenciaService } from '../../services/agencia.service';
 import { Agencia } from '../../interfaces/agencia.interface';
 
 @Component({
   selector: 'app-agencias',
   templateUrl: './agencias.component.html',
   styleUrls: ['./agencias.component.scss'],
-  providers: [
-    AgenciasService,
-    AgenciaService
-  ]
+  providers: [ AgenciasService ]
 })
 export class AgenciasComponent implements OnInit, OnDestroy {
 
@@ -32,13 +27,11 @@ export class AgenciasComponent implements OnInit, OnDestroy {
 
   constructor(
     private agenciasService: AgenciasService,
-    private agenciaService: AgenciaService,
     private compiler: Compiler
   ) { }
 
   ngOnInit(): void {
     this.getAgencias();
-    this.getAgencia();
   }
 
   ngOnDestroy(): void {
@@ -54,16 +47,6 @@ export class AgenciasComponent implements OnInit, OnDestroy {
       )
   }
 
-  getAgencia(): void {
-    this.agenciaService.agencia$
-    .pipe(takeWhile(() => this.inscrito))
-    .subscribe(
-      dados => {
-        this.informacoes.clear();
-        this.informacoesRender(dados)
-      });
-  }
-
   private autocompleteRender(dados: Agencias): void {
     import('../autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
       const module = this.compiler.compileModuleSync(AutocompleteModule);
@@ -74,10 +57,17 @@ export class AgenciasComponent implements OnInit, OnDestroy {
       ref.instance.keyword = 'nome';
       ref.instance.placeholder = 'Selecione a agência para obter informações';
       ref.instance.titulo = 'Nome da Agência';
+      ref.instance.aoSelecionar
+        .pipe(takeWhile(() => this.inscrito))
+        .subscribe(
+          (sucesso: Agencia) => this.informacoesRender(sucesso),
+          erro => console.log('método autocompleteRender -> ', erro)
+        );
     });
   }
 
-  private informacoesRender(dados: Agencia): void {
+  private informacoesRender(dados: Agencia, limpar: boolean = true): void {
+    limpar && this.informacoes.clear();
     import('../informacoes/informacoes.module').then(({ InformacoesModule }) => {
       const module = this.compiler.compileModuleSync(InformacoesModule);
       const ngModule = module.create(this.informacoes.injector);

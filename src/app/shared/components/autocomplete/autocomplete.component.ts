@@ -1,6 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
-import { AgenciaService } from '../../services/agencia.service';
 import { Agencia } from '../../interfaces/agencia.interface';
 
 @Component({
@@ -14,15 +19,14 @@ export class AutocompleteComponent implements OnInit {
   @Input() keyword: string;
   @Input() placeholder: string;
   @Input() titulo: string;
+  @Output() aoSelecionar: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private agenciaService: AgenciaService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void { }
 
   selectEvent(item: Agencia): void {
-    this.agenciaService.atualizaDadosAgencia(item);
+    this.aoSelecionar.emit(item);
   }
 
   onFocused(): void { }
