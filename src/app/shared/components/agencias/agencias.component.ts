@@ -17,7 +17,11 @@ import { Agencia } from '../../interfaces/agencia.interface';
 @Component({
   selector: 'app-agencias',
   templateUrl: './agencias.component.html',
-  styleUrls: ['./agencias.component.scss']
+  styleUrls: ['./agencias.component.scss'],
+  providers: [
+    AgenciasService,
+    AgenciaService
+  ]
 })
 export class AgenciasComponent implements OnInit, OnDestroy {
 

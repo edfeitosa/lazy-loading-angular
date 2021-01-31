@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AgenciasRoutingModule } from './agencias-routing.module';
 import { AgenciasComponent } from './agencias.component';
-import { AgenciasService } from '../../services/agencias.service';
 
 @NgModule({
   declarations: [
@@ -12,9 +11,6 @@ import { AgenciasService } from '../../services/agencias.service';
   imports: [
     CommonModule,
     AgenciasRoutingModule
-  ],
-  providers: [
-    AgenciasService
   ]
 })
 export class AgenciasModule { }

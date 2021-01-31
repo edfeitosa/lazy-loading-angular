@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { Agencia } from '../interfaces/agencia.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class AgenciaService {
 
