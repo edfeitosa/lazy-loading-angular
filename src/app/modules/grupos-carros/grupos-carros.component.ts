@@ -42,7 +42,6 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe(
         dados => this.autocompleteRender(dados),
-        // dados => console.log(dados),
         erro => console.log(erro)
       )
   }
@@ -57,12 +56,24 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
       ref.instance.keyword = 'codigo';
       ref.instance.placeholder = 'Selecione o grupo de carros para obter informações';
       ref.instance.titulo = 'Grupo de Carros';
-      /* ref.instance.aoSelecionar
+      ref.instance.aoSelecionar
         .pipe(takeWhile(() => this.inscrito))
         .subscribe(
-          (sucesso: Agencia) => this.informacoesRender(sucesso),
+          (sucesso: GruposCarros) => this.informacoesRender(sucesso),
           erro => console.log('método autocompleteRender -> ', erro)
-        ); */
+        );
+    });
+  }
+
+  private informacoesRender(dados: GruposCarros, limpar: boolean = true): void {
+    limpar && this.informacoes.clear();
+    import('../../shared/components/informacoes/informacoes.module').then(({ InformacoesModule }) => {
+      const module = this.compiler.compileModuleSync(InformacoesModule);
+      const ngModule = module.create(this.informacoes.injector);
+      const component = ngModule.componentFactoryResolver.resolveComponentFactory(InformacoesModule.componentToRender());
+      const ref = this.informacoes.createComponent(component);
+      ref.instance.tipo = 'grupos-carros';
+      ref.instance.dados = dados;
     });
   }
 

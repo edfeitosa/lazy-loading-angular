@@ -24,6 +24,7 @@
       @include font-family('localiza_din_displaybold');
       font-size: $fonte-pequena;
       color: $texto-escuro;
+      margin-bottom: 2px;
     }
 
     >.descricao {

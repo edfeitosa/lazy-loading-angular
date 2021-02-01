@@ -1,4 +1,4 @@
-<div class="informacoes">
+<div class="informacoes" *ngIf="tipo === 'agencias'">
   <div class="linha" destacaInformacao>
     <div class="titulo">
       Código
@@ -15,7 +15,7 @@
       {{dados.codigoCentroOperacional}}
     </div>
   </div>
-  <div class="linha">
+  <div class="linha" destacaInformacao>
     <div class="titulo">
       Código Filial
     </div>
@@ -23,7 +23,7 @@
       {{dados.codigoFilial}}
     </div>
   </div>
-  <div class="linha">
+  <div class="linha" destacaInformacao>
     <div class="titulo">
       Código País
     </div>
@@ -31,12 +31,23 @@
       {{dados.codigoPais}}
     </div>
   </div>
-  <div class="linha">
+  <div class="linha" destacaInformacao>
     <div class="titulo">
       Localidade
     </div>
     <div class="descricao">
       {{dados.nomeCidade}}/{{dados.siglaEstado}} - {{dados.nomePais}}
+    </div>
+  </div>
+</div>
+
+<div class="informacoes" *ngIf="tipo === 'grupos-carros'">
+  <div class="linha" destacaInformacao>
+    <div class="titulo">
+      Descrição do Grupo
+    </div>
+    <div class="descricao">
+      {{dados.descricao}}
     </div>
   </div>
 </div>
