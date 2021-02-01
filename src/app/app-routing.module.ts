@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   {
     path: 'agencias',
-    loadChildren: () => import('./shared/components/agencias/agencias.module').then(m => m.AgenciasModule)
+    loadChildren: () => import('./modules/agencias/agencias.module').then(m => m.AgenciasModule)
   },
 ];
 

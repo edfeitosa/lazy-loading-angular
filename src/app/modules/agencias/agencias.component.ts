@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { take, takeWhile } from 'rxjs/operators';
 
-import { AgenciasService } from '../../services/agencias/agencias.service';
-import { Agencias } from '../../interfaces/agencias.interface';
-import { Agencia } from '../../interfaces/agencia.interface';
+import { AgenciasService } from '../../shared/services/agencias/agencias.service';
+import { Agencias } from '../../shared/interfaces/agencias.interface';
+import { Agencia } from '../../shared/interfaces/agencia.interface';
 
 @Component({
   selector: 'app-agencias',
@@ -48,7 +48,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
   }
 
   private autocompleteRender(dados: Agencias): void {
-    import('../autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
+    import('../../shared/components/autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
       const module = this.compiler.compileModuleSync(AutocompleteModule);
       const ngModule = module.create(this.autocomplete.injector);
       const component = ngModule.componentFactoryResolver.resolveComponentFactory(AutocompleteModule.componentToRender());
@@ -68,7 +68,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
 
   private informacoesRender(dados: Agencia, limpar: boolean = true): void {
     limpar && this.informacoes.clear();
-    import('../informacoes/informacoes.module').then(({ InformacoesModule }) => {
+    import('../../shared/components/informacoes/informacoes.module').then(({ InformacoesModule }) => {
       const module = this.compiler.compileModuleSync(InformacoesModule);
       const ngModule = module.create(this.informacoes.injector);
       const component = ngModule.componentFactoryResolver.resolveComponentFactory(InformacoesModule.componentToRender());
