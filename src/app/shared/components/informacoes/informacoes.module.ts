@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { InformacoesComponent } from './informacoes.component';
+import { DestacaInformacaoDirective } from '../../directives/destaca-informacao/destaca-informacao.directive';
 
 @NgModule({
   declarations: [
-    InformacoesComponent
+    InformacoesComponent,
+    DestacaInformacaoDirective
   ],
   imports: [
     CommonModule
