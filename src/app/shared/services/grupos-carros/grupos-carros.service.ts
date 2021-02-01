@@ -15,7 +15,7 @@ export class GruposCarrosService {
     private http: HttpClient
   ) { }
 
-  agencias(): Observable<GruposCarros> {
+  gruposCarros(): Observable<GruposCarros> {
     return this.http.get<GruposCarros>(`${environment.URL_SERVICE}/grupos-carros`)
       .pipe(
         take(1),
