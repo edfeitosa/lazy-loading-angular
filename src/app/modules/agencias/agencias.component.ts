@@ -22,6 +22,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
 
   @ViewChild('autocomplete', { read: ViewContainerRef, static: true }) autocomplete: ViewContainerRef;
   @ViewChild('informacoes', { read: ViewContainerRef, static: true }) informacoes: ViewContainerRef;
+  @ViewChild('loader', { read: ViewContainerRef, static: true }) loader: ViewContainerRef;
 
   inscrito: boolean = true;
 
@@ -32,6 +33,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAgencias();
+    this.loaderRender();
   }
 
   ngOnDestroy(): void {
@@ -42,9 +44,22 @@ export class AgenciasComponent implements OnInit, OnDestroy {
     this.agenciasService.agencias()
       .pipe(take(1))
       .subscribe(
-        dados => this.autocompleteRender(dados),
+        dados => {
+          this.loader.clear();
+          this.autocompleteRender(dados);
+        },
         erro => console.log(erro)
       )
+  }
+
+  private loaderRender(): void {
+    import('../../shared/components/loader/loader.module').then(({ LoaderModule }) => {
+      const module = this.compiler.compileModuleSync(LoaderModule);
+      const ngModule = module.create(this.autocomplete.injector);
+      const component = ngModule.componentFactoryResolver.resolveComponentFactory(LoaderModule.componentToRender());
+      const ref = this.loader.createComponent(component);
+      ref.instance.mensagem = 'Estamos preparando os dados de agências para você';
+    });
   }
 
   private autocompleteRender(dados: Agencias): void {
