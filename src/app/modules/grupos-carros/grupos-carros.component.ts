@@ -22,6 +22,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
   @ViewChild('autocomplete', { read: ViewContainerRef, static: true }) autocomplete: ViewContainerRef;
   @ViewChild('informacoes', { read: ViewContainerRef, static: true }) informacoes: ViewContainerRef;
   @ViewChild('loader', { read: ViewContainerRef, static: true }) loader: ViewContainerRef;
+  @ViewChild('mensagem', { read: ViewContainerRef, static: true }) mensagem: ViewContainerRef;
 
   inscrito: boolean = true;
 
@@ -47,7 +48,10 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
           this.loader.clear();
           this.autocompleteRender(dados);
         },
-        erro => console.log(erro)
+        erro => {
+          this.loader.clear();
+          this.loaderMensagem(`Ocorreu um erro: ${erro.statusText}`);
+        }
       )
   }
 
@@ -89,6 +93,16 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
       const ref = this.informacoes.createComponent(component);
       ref.instance.tipo = 'grupos-carros';
       ref.instance.dados = dados;
+    });
+  }
+
+  private loaderMensagem(mensagem: string): void {
+    import('../../shared/components/mensagens/mensagens.module').then(({ MensagensModule }) => {
+      const module = this.compiler.compileModuleSync(MensagensModule);
+      const ngModule = module.create(this.autocomplete.injector);
+      const component = ngModule.componentFactoryResolver.resolveComponentFactory(MensagensModule.componentToRender());
+      const ref = this.loader.createComponent(component);
+      ref.instance.mensagem = mensagem;
     });
   }
 
