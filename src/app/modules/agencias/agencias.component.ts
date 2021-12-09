@@ -10,7 +10,6 @@ import { take, takeWhile } from 'rxjs/operators';
 
 import { AgenciasService } from '../../shared/services/agencias/agencias.service';
 import { Agencias } from '../../shared/interfaces/agencias.interface';
-import { Agencia } from '../../shared/interfaces/agencia.interface';
 
 @Component({
   selector: 'app-agencias',
@@ -45,10 +44,24 @@ export class AgenciasComponent implements OnInit, OnDestroy {
     this.agenciasService.agencias()
       .pipe(take(1))
       .subscribe(
-        dados => {
-          console.log(dados);
+        (dados: any) => {
           this.loader.clear();
           this.autocompleteRender(dados);
+        },
+        erro => {
+          this.loader.clear();
+          this.loaderMensagem(`Ocorreu um erro: ${erro.statusText}`);
+        }
+      )
+  }
+
+  getAgencia(id: string): void {
+    this.agenciasService.agencia(id)
+      .pipe(take(1))
+      .subscribe(
+        (dados: any) => {
+          this.loader.clear();
+          this.informacoesRender(dados);
         },
         erro => {
           this.loader.clear();
@@ -67,26 +80,26 @@ export class AgenciasComponent implements OnInit, OnDestroy {
     });
   }
 
-  private autocompleteRender(dados: Agencias): void {
+  private autocompleteRender(dados: Agencias[]): void {
     import('../../shared/components/autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
       const module = this.compiler.compileModuleSync(AutocompleteModule);
       const ngModule = module.create(this.autocomplete.injector);
       const component = ngModule.componentFactoryResolver.resolveComponentFactory(AutocompleteModule.componentToRender());
       const ref = this.autocomplete.createComponent(component);
-      ref.instance.data = dados.data;
+      ref.instance.data = dados;
       ref.instance.keyword = 'nome';
       ref.instance.placeholder = 'Selecione a agência para obter informações';
       ref.instance.titulo = 'Nome da Agência';
       ref.instance.aoSelecionar
         .pipe(takeWhile(() => this.inscrito))
         .subscribe(
-          (sucesso: Agencia) => this.informacoesRender(sucesso),
+          (id: string) => this.getAgencia(id),
           erro => console.log('método autocompleteRender -> ', erro)
         );
     });
   }
 
-  private informacoesRender(dados: Agencia, limpar: boolean = true): void {
+  private informacoesRender(dados: Agencias, limpar: boolean = true): void {
     limpar && this.informacoes.clear();
     import('../../shared/components/informacoes/informacoes.module').then(({ InformacoesModule }) => {
       const module = this.compiler.compileModuleSync(InformacoesModule);

@@ -46,7 +46,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
       .subscribe(
         dados => {
           this.loader.clear();
-          this.autocompleteRender(dados);
+          // this.autocompleteRender(dados);
         },
         erro => {
           this.loader.clear();
@@ -65,7 +65,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
     });
   }
 
-  private autocompleteRender(dados: GruposCarros): void {
+  /* private autocompleteRender(dados: GruposCarros): void {
     import('../../shared/components/autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
       const module = this.compiler.compileModuleSync(AutocompleteModule);
       const ngModule = module.create(this.autocomplete.injector);
@@ -82,7 +82,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
           erro => console.log('método autocompleteRender -> ', erro)
         );
     });
-  }
+  } */
 
   private informacoesRender(dados: GruposCarros, limpar: boolean = true): void {
     limpar && this.informacoes.clear();

@@ -16,7 +16,7 @@ export class GruposCarrosService {
   ) { }
 
   gruposCarros(): Observable<GruposCarros> {
-    return this.http.get<GruposCarros>(`${environment.URL_SERVICE}/grupos-carros`)
+    return this.http.get<GruposCarros>(`${environment.URL_SERVICE}/grupos`)
       .pipe(
         take(1),
         tap(sucesso => sucesso),

@@ -6,7 +6,7 @@ import {
   EventEmitter
 } from '@angular/core';
 
-import { Agencia } from '../../interfaces/agencia.interface';
+import { Agencias } from '../../interfaces/agencias.interface';
 
 @Component({
   selector: 'app-autocomplete',
@@ -15,18 +15,20 @@ import { Agencia } from '../../interfaces/agencia.interface';
 })
 export class AutocompleteComponent implements OnInit {
 
-  @Input() data: Array<object>;
+  @Input() data: Agencias[];
   @Input() keyword: string;
   @Input() placeholder: string;
   @Input() titulo: string;
   @Output() aoSelecionar: EventEmitter<any> = new EventEmitter();
+  numero = new Number;
 
   constructor() { }
 
   ngOnInit(): void { }
 
-  selectEvent(item: Agencia): void {
-    this.aoSelecionar.emit(item);
+  selectEvent(item: Agencias): void {
+    console.log(item.id);
+    this.aoSelecionar.emit(item.id);
   }
 
   onFocused(): void { }

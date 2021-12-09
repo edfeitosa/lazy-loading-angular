@@ -23,4 +23,13 @@ export class AgenciasService {
         catchError(erro => throwError(erro))
       )
   }
+
+  agencia(id: string): Observable<Agencias> {
+    return this.http.get<Agencias>(`${environment.URL_SERVICE}/agencias/${id}`)
+      .pipe(
+        take(1),
+        tap(sucesso => sucesso),
+        catchError(erro => throwError(erro))
+      )
+  }
 }
