@@ -15,7 +15,7 @@ import { Agencias } from '../../interfaces/agencias.interface';
 })
 export class AutocompleteComponent implements OnInit {
 
-  @Input() data: Agencias[];
+  @Input() data: any;
   @Input() keyword: string;
   @Input() placeholder: string;
   @Input() titulo: string;

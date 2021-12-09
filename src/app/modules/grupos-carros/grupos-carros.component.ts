@@ -9,7 +9,7 @@ import {
 import { take, takeWhile } from 'rxjs/operators';
 
 import { GruposCarrosService } from '../../shared/services/grupos-carros/grupos-carros.service';
-import { GruposCarros } from '../../shared/interfaces/grupos-carros.interface';
+import { Grupo } from '../../shared/interfaces/grupos.interface';
 
 @Component({
   selector: 'app-grupos-carros',
@@ -41,12 +41,27 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
   }
 
   getGruposCarros(): void {
-    this.gruposCarrosService.gruposCarros()
+    this.gruposCarrosService.grupos()
       .pipe(take(1))
       .subscribe(
-        dados => {
+        (dados: any) => {
           this.loader.clear();
-          // this.autocompleteRender(dados);
+          this.autocompleteRender(dados);
+        },
+        erro => {
+          this.loader.clear();
+          this.loaderMensagem(`Ocorreu um erro: ${erro.statusText}`);
+        }
+      )
+  }
+
+  getGrupoCarros(id: string): void {
+    this.gruposCarrosService.grupo(id)
+      .pipe(take(1))
+      .subscribe(
+        (dados: any) => {
+          this.loader.clear();
+          this.informacoesRender(dados);
         },
         erro => {
           this.loader.clear();
@@ -65,26 +80,26 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
     });
   }
 
-  /* private autocompleteRender(dados: GruposCarros): void {
+  private autocompleteRender(dados: Grupo[]): void {
     import('../../shared/components/autocomplete/autocomplete.module').then(({ AutocompleteModule }) => {
       const module = this.compiler.compileModuleSync(AutocompleteModule);
       const ngModule = module.create(this.autocomplete.injector);
       const component = ngModule.componentFactoryResolver.resolveComponentFactory(AutocompleteModule.componentToRender());
       const ref = this.autocomplete.createComponent(component);
-      ref.instance.data = dados.data;
+      ref.instance.data = dados;
       ref.instance.keyword = 'codigo';
       ref.instance.placeholder = 'Selecione o grupo de carros para obter informações';
       ref.instance.titulo = 'Grupo de Carros';
       ref.instance.aoSelecionar
         .pipe(takeWhile(() => this.inscrito))
         .subscribe(
-          (sucesso: GruposCarros) => this.informacoesRender(sucesso),
+          (id: string) => this.getGrupoCarros(id),
           erro => console.log('método autocompleteRender -> ', erro)
         );
     });
-  } */
+  }
 
-  private informacoesRender(dados: GruposCarros, limpar: boolean = true): void {
+  private informacoesRender(dados: Grupo, limpar: boolean = true): void {
     limpar && this.informacoes.clear();
     import('../../shared/components/informacoes/informacoes.module').then(({ InformacoesModule }) => {
       const module = this.compiler.compileModuleSync(InformacoesModule);

@@ -4,7 +4,7 @@ import { catchError, tap, take } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
 import { environment } from '../../../../environments/environment';
-import { GruposCarros } from '../../interfaces/grupos-carros.interface';
+import { Grupo } from '../../interfaces/grupos.interface';
 
 @Injectable({
   providedIn: 'any'
@@ -15,8 +15,17 @@ export class GruposCarrosService {
     private http: HttpClient
   ) { }
 
-  gruposCarros(): Observable<GruposCarros> {
-    return this.http.get<GruposCarros>(`${environment.URL_SERVICE}/grupos`)
+  grupos(): Observable<Grupo[]> {
+    return this.http.get<Grupo[]>(`${environment.URL_SERVICE}/grupos`)
+      .pipe(
+        take(1),
+        tap(sucesso => sucesso),
+        catchError(erro => throwError(erro))
+      )
+  }
+
+  grupo(id: string): Observable<Grupo> {
+    return this.http.get<Grupo>(`${environment.URL_SERVICE}/grupos/${id}`)
       .pipe(
         take(1),
         tap(sucesso => sucesso),
