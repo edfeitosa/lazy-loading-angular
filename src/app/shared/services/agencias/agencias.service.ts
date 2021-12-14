@@ -15,7 +15,7 @@ export class AgenciasService {
     private http: HttpClient
   ) { }
 
-  agencias(): Observable<Agencias> {
+  getAll(): Observable<Agencias> {
     return this.http.get<Agencias>(`${environment.URL_SERVICE}/agencias`)
       .pipe(
         take(1),
@@ -24,7 +24,7 @@ export class AgenciasService {
       )
   }
 
-  agencia(id: string): Observable<Agencias> {
+  getId(id: string): Observable<Agencias> {
     return this.http.get<Agencias>(`${environment.URL_SERVICE}/agencias/${id}`)
       .pipe(
         take(1),

@@ -9,3 +9,4 @@ export interface Agencias {
   codigoFilial: string,
   codigoCentroOperacional: string
 }
+

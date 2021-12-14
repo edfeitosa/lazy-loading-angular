@@ -15,7 +15,7 @@ export class GruposCarrosService {
     private http: HttpClient
   ) { }
 
-  grupos(): Observable<Grupo[]> {
+  getAll(): Observable<Grupo[]> {
     return this.http.get<Grupo[]>(`${environment.URL_SERVICE}/grupos`)
       .pipe(
         take(1),
@@ -24,7 +24,7 @@ export class GruposCarrosService {
       )
   }
 
-  grupo(id: string): Observable<Grupo> {
+  getId(id: string): Observable<Grupo> {
     return this.http.get<Grupo>(`${environment.URL_SERVICE}/grupos/${id}`)
       .pipe(
         take(1),

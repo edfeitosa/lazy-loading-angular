@@ -41,7 +41,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
   }
 
   getAgencias(): void {
-    this.agenciasService.agencias()
+    this.agenciasService.getAll()
       .pipe(take(1))
       .subscribe(
         (dados: any) => {
@@ -56,7 +56,7 @@ export class AgenciasComponent implements OnInit, OnDestroy {
   }
 
   getAgencia(id: string): void {
-    this.agenciasService.agencia(id)
+    this.agenciasService.getId(id)
       .pipe(take(1))
       .subscribe(
         (dados: any) => {

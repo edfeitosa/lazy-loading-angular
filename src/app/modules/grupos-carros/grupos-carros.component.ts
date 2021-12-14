@@ -41,7 +41,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
   }
 
   getGruposCarros(): void {
-    this.gruposCarrosService.grupos()
+    this.gruposCarrosService.getAll()
       .pipe(take(1))
       .subscribe(
         (dados: any) => {
@@ -56,7 +56,7 @@ export class GruposCarrosComponent implements OnInit, OnDestroy {
   }
 
   getGrupoCarros(id: string): void {
-    this.gruposCarrosService.grupo(id)
+    this.gruposCarrosService.getId(id)
       .pipe(take(1))
       .subscribe(
         (dados: any) => {
